@@ -5,7 +5,7 @@ import PDFComponent from './pdf';
 
 export default function PdfList() {
   const [pdfs, setPdfs] = useState([]);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState('');
   const [filter, setFilter] = useState();
   const didFetchRef = useRef(false);
 
@@ -43,11 +43,10 @@ export default function PdfList() {
   }
 
   async function updatePdf(pdf, fieldChanged) {
-    const data = { [fieldChanged]: pdf[fieldChanged] };
 
     await fetch(process.env.NEXT_PUBLIC_API_URL + `/pdfs/${pdf.id}`, {
       method: 'PUT',
-      body: JSON.stringify(data),
+      body: JSON.stringify(pdf),
       headers: { 'Content-Type': 'application/json' }
     });
   }
